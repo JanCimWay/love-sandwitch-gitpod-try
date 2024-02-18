@@ -63,9 +63,9 @@ def update_sales_worksheet(data):
     print("Sales worksheet updated successfully.\n")
 
 
-def calculate_surplus_data(sales_data):
+def calculate_surplus_data(sales_row):
     """
-    Compare saöes wotj stpcö amd caöciöate the surplus for each item type.
+    Compare sales with stock and calculate the surplus for each item type.
 
     The surplus is defined as the sales figure subtracted from the stock:
     -Positive surplus indicates waste
@@ -74,7 +74,13 @@ def calculate_surplus_data(sales_data):
     print("Calculating surplus data...\n")
     stock = SHEET.worksheet("stock").get_all_values()
     stock_row = stock[-1]
-    pprint(stock_row)
+    
+    surplus_data = []
+    # with zip method we can worj with 2 lists at the same time
+    for stock, sales in zip(stock_row, sales_row):
+        surplus = int(stock) - sales
+        surplus_data.append(surplus)
+    print(surplus_data)
 
 
 def main():
